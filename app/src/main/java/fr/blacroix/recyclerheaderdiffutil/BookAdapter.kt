@@ -8,6 +8,12 @@ import android.view.ViewGroup
 
 class BookAdapter(private val layoutInflater: LayoutInflater) : RecyclerView.Adapter<ViewHolder>() {
 
+    companion object {
+        val BOOK_VIEW_TYPE = 1
+        val HEADER_VIEW_TYPE = 0
+        val HEADER_VIEW_COUNT = 1
+    }
+
     private var listUpdateCallback: MyListUpdateCallback = MyListUpdateCallback(this)
 
     private val books = mutableListOf<Book>()
@@ -16,21 +22,19 @@ class BookAdapter(private val layoutInflater: LayoutInflater) : RecyclerView.Ada
         val view = holder.itemView
         when (view) {
             is BookView -> {
-                if (position == 0) {
-                    view.bind(Book("My name is Header!"))
-                } else {
-                    view.bind(books[position - 1])
-                }
+                view.bind(books[position - HEADER_VIEW_COUNT])
             }
         }
     }
 
-    override fun getItemCount(): Int = books.size + 1
+    override fun getItemCount(): Int = books.size + HEADER_VIEW_COUNT
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-            ViewHolder(layoutInflater.inflate(R.layout.book_view, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = when (viewType) {
+        HEADER_VIEW_TYPE -> ViewHolder(layoutInflater.inflate(R.layout.header_view, parent, false))
+        else -> ViewHolder(layoutInflater.inflate(R.layout.book_view, parent, false))
+    }
 
-    override fun getItemViewType(position: Int): Int = if (position == 0) 0 else 1
+    override fun getItemViewType(position: Int): Int = if (position == 0) HEADER_VIEW_TYPE else BOOK_VIEW_TYPE
 
     fun setData(list: List<Book>) {
         books.addAll(list)

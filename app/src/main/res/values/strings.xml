@@ -3,4 +3,5 @@
     <string name="book_added_cta">Book added at 3rd position</string>
     <string name="book_removed_cta">Book removed at 3rd position</string>
     <string name="book_changed_cta">Book changed at 3rd position</string>
+    <string name="header_text">I am an annoying header ;)</string>
 </resources>
