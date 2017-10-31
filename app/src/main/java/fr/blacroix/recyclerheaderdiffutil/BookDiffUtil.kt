@@ -20,14 +20,14 @@ class BookDiffUtil(private val oldBooks: List<Book>, private val newBooks: List<
 class MyListUpdateCallback(private val adapter: BookAdapter) : ListUpdateCallback {
 
     override fun onChanged(position: Int, count: Int, payload: Any?) =
-            adapter.notifyItemRangeChanged(position + 1, count, payload)
+            adapter.notifyItemRangeChanged(position + BookAdapter.HEADER_VIEW_COUNT, count, payload)
 
     override fun onMoved(fromPosition: Int, toPosition: Int) =
-            adapter.notifyItemMoved(fromPosition + 1, toPosition + 1)
+            adapter.notifyItemMoved(fromPosition + BookAdapter.HEADER_VIEW_COUNT, toPosition + BookAdapter.HEADER_VIEW_COUNT)
 
     override fun onInserted(position: Int, count: Int) =
-            adapter.notifyItemRangeInserted(position + 1, count)
+            adapter.notifyItemRangeInserted(position + BookAdapter.HEADER_VIEW_COUNT, count)
 
     override fun onRemoved(position: Int, count: Int) =
-            adapter.notifyItemRangeRemoved(position + 1, count)
+            adapter.notifyItemRangeRemoved(position + BookAdapter.HEADER_VIEW_COUNT, count)
 }
